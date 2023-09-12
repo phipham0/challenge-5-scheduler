@@ -2,6 +2,7 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -21,11 +22,11 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
   $('.time-block').each(function (index, timeBlock) {
-    const schedules = JSON.parse(localStorage.getItem('schedules'));
+    const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
     const scheduleHour = timeBlock.getAttribute('data-hour');
     const currentHour = dayjs().hour();
+    console.log(schedules);
 
-    // future
     if (scheduleHour > currentHour) {
       timeBlock.classList.add('future');
     }
@@ -46,6 +47,7 @@ $(function () {
 
     //Add event listener for button
     timeBlock.addEventListener("click", function (event) {
+      event.preventDefault();
       if (event.target.matches('button')) {
         console.log("clicked button");
         console.log(event.target);
